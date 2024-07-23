@@ -1,0 +1,31 @@
+services:
+  ruby:
+    build: .
+    environment:
+      - RAILS_ENV=development
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    command: /bin/bash
+    tty: true
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: steam_profiler
+      POSTGRES_USER: hades
+      POSTGRES_PASSWORD: pg_academy
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
