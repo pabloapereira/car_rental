@@ -1,8 +1,6 @@
 services:
   ruby:
     build: .
-    environment:
-      - RAILS_ENV=development
     volumes:
       - .:/usr/src/app
     working_dir: /usr/src/app

@@ -3,9 +3,8 @@ module CarsFavoriteUserQuery
   attr_reader :query
 
   def query(user_id)
-    @query = Car.joins(:favorites, :car_favorite)
-                .joins(car_favorites: :users)
-                .where(User.id = user_id)
+    @query = CarFavorite.joins(:car, :favorite)
+                .joins(favorite: :user)
                 .select(
                   "id",
                   "name",
@@ -14,6 +13,10 @@ module CarsFavoriteUserQuery
                   "plate",
                   "user.name AS user_name"
                 )
+                .where("user.id": user_id)
+
+    binding.pry
+
     @query = @query.map do |entry|
       {
         id: entry.id,
@@ -24,6 +27,5 @@ module CarsFavoriteUserQuery
         user_name: entry.user_name
       }
     end
-
   end
 end

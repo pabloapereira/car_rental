@@ -3,9 +3,11 @@ Rails.application.routes.draw do
   get 'users/:id', to: 'users#show'
   get 'users/new', to: 'users#new'
   post 'users', to: 'users#create'
+  post 'users/:id/rental', to: 'users#bond'
   put 'users/:id/edit', to: 'users#edit'
   put 'users/:id', to: 'users#update'
   delete 'users/:id', to: 'users#destroy'
+  delete 'users/:id/rental/:rental_id', to: 'users#delete_bond'
 
   # Rotas Store
   get 'stores', to: 'stores#index'
@@ -33,4 +35,9 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   get "up" => "rails/health#show", as: :rails_health_check
+
+  get "/cars", to: 'cars_report#index', defaults: {format: :pdf}
+  get "/carsStore/(:option)", to: 'cars_stores_report#index', defaults: {format: :pdf}
+  get "/a/(:option)", to: "cars_is_present_favorite#index", defaults: {format: :pdf}
+  get "/b/(:option)", to: "favorites_cars_user_report#index", defaults: {format: :pdf}
 end

@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show update destroy]
+  before_action :set_rental, only: %i[delete_bond]
 
   # Retorna uma coleção com todos os objetos do tipo User
   def index
     @users = User.all
 
     render json: @users
-    # O @ indica uma variavel de instancia que pode ser acessa em todos os lugar do codigo
   end
 
   # Retorna apenas um objeto da coleção User que é predicado pelo seu :id
@@ -45,7 +45,28 @@ class UsersController < ApplicationController
 
   # Faz a exclusão de um registro existente no banco de dados
   def destroy
+    if @user.favorite.present?
+      @user.favorite.destroy
+    end
+
     @user.destroy
+    head :no_content
+  end
+
+  def bond
+    @rental = User::RentalForm.new(rental_params)
+
+    result = @rental.rent
+
+    if result
+      render json: result, status: :created
+    else
+      render json: { error: 'Não foi possível realizar a locação.' }, status: :unprocessable_entity
+    end
+  end
+
+  def delete_bond
+    @rental.destroy
     head :no_content
   end
 
@@ -54,7 +75,15 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-    def user_params
-      params.require(:users).permit(:name, :age, :cpf, :driver_license, :card)
-    end
+  def set_rental
+    @rental = CarUser.find(params[:rental_id])
+  end
+
+  def user_params
+    params.require(:users).permit(:name, :age, :cpf, :driver_license, :card)
+  end
+
+  def rental_params
+    params.require(:users).permit(:car_id, :user_id)
+  end
 end

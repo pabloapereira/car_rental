@@ -6,7 +6,8 @@ stores = []
     name: Faker::Name.first_name,
     #cnpj: Faker::IdNumber.brazilian_id(formatted: true),
     cnpj: Faker::Number.binary(digits: 4),
-    telephone_number: Faker::PhoneNumber.phone_number,
+    #telephone_number: Faker::PhoneNumber.phone_number,
+    telephone_number: Faker::Number.binary(digits: 4),
     adress: Faker::Address.street_address ,
   )
 end
@@ -21,7 +22,6 @@ cars = []
     year: Faker::Number.binary(digits: 4),
     plate: Faker::Vehicle.license_plate ,
     store_id: Store.pluck(:id).sample,
-    is_leased: false
     )
 end
 
@@ -40,6 +40,7 @@ users = []
 end
 
 # Criação de car user
+=begin
 puts "Creating car user"
 car_users = []
 2.times do
@@ -48,7 +49,7 @@ car_users = []
     user_id: User.pluck(:id).sample,
   )
 end
-
+=end
 # Criação de favorite
 puts "Creating favorites"
 favorites = []

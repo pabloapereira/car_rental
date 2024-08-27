@@ -1,6 +1,6 @@
 require_relative '../queries/cars/cars_is_present_favorite_query'
 
-class CarsIsPresentFavoriteController < ReportsController
+class CarsIsPresentFavoriteReport < ReportsController
   include CarIsPresentFavoriteQuery
 
   def index
