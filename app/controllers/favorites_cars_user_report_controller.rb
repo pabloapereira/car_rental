@@ -5,9 +5,11 @@ class FavoritesCarsUserReportController < ReportsController
 
   def index
     user_id = params[:option] || 1
-    data = CarsFavoriteUserQuery::query(user_id)
-    headers = ["id", "name", "brand", "year", "plate", "user_name"]
-    title = "teste"
+    data, user_name = CarsFavoriteUserQuery::query(user_id)
+
+    headers = ["id usuario", "Usuario", "id Carro", "Carro", "Marca", "Ano", "Placa"]
+    title = "Carros favoritos de #{user_name}"
     generate_report("tes", data, headers, title)
   end
 end
+

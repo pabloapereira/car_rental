@@ -3,7 +3,7 @@ module CarStoreQuery
   attr_reader :query
 
   def get_query(id)
-    store_name = Store.find_by(id: id)&.name || "Loja Desconhecida"
+    store_name = User.find_by(id: id)&.name || "Loja Desconhecida"
 
     @query = Car.joins(:store).where(store_id: id)
                 .select(
@@ -23,7 +23,6 @@ module CarStoreQuery
         plate: entry.plate
       }.values
     end
-
     return data, store_name
   end
 end

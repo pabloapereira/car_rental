@@ -3,29 +3,26 @@ module CarsFavoriteUserQuery
   attr_reader :query
 
   def query(user_id)
-    @query = CarFavorite.joins(:car, :favorite)
-                .joins(favorite: :user)
-                .select(
-                  "id",
-                  "name",
-                  "brand",
-                  "year",
-                  "plate",
-                  "user.name AS user_name"
-                )
-                .where("user.id": user_id)
+    user_name = User.find_by(id: user_id)&.name
 
-    binding.pry
+    @query = User.joins(favorite: [car_favorites: :car])
+                 .select("users.id AS user, users.name AS user_name, cars.id AS car_id, cars.name AS car_name,
+                          cars.brand AS car_brand, cars.year AS car_year, cars.plate AS car_plate")
+                 .where(id: user_id)
+                 .distinct
 
-    @query = @query.map do |entry|
-      {
-        id: entry.id,
-        name: entry.name,
-        brand: entry.brand,
-        year: entry.year,
-        plate: entry.plate,
-        user_name: entry.user_name
-      }
+    data = @query.map do |entry|
+      [
+        entry.user,
+        entry.user_name,
+        entry.car_id,
+        entry.car_name,
+        entry.car_brand,
+        entry.car_year,
+        entry.car_plate
+      ]
     end
+
+    return data, user_name
   end
 end
