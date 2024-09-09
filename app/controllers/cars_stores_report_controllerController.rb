@@ -8,6 +8,6 @@ class CarsStoresReportController < ReportsController
 
     headers = ["id_car", "name", "brand", "year", "plate"]
     title = "#{store_name}"
-    generate_report("teste", data, headers, title)
+    generate_report("teste", "titulo Teste")#, data, headers, title
   end
 end

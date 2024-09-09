@@ -40,4 +40,5 @@ Rails.application.routes.draw do
   get "/carsStore/(:option)", to: 'cars_stores_report#index', defaults: {format: :pdf}
   get "/a/(:option)", to: "cars_is_present_favorite#index", defaults: {format: :pdf}
   get "/b/(:option)", to: "favorites_cars_user_report#index", defaults: {format: :pdf}
+  get "/ponto", to: "point_report#index", defaults: {format: :pdf}
 end
