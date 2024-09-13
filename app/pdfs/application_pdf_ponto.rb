@@ -5,6 +5,7 @@ class ApplicationPdfPonto
     @value = 12
   end
 
+  # Creates the horizontal line used in the PDF
   def line_gradient
     line_width 2
 
@@ -13,7 +14,7 @@ class ApplicationPdfPonto
       horizontal_line 0, 100
     end
 
-    # Segundo gradiente horizontal de cinza para branco
+    # Second horizontal gradient from gray to white
     stroke_gradient [100, 150], [200, 150], '8D9399', 'FFFFFF'
     stroke do
       horizontal_line 100, 200

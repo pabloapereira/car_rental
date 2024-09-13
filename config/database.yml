@@ -24,14 +24,14 @@ development:
   database: steam_profiler
   username: hades
   password: pg_academy
-  host: db
+  host: localhost
 
 test:
   <<: *default
   database: steam_profiler_test
   username: hades # Substituir pelo seu usuário do postgres
   password: pg_academy # Substituir pela sua senha do postgres
-  host: db # Substituir pelo nome do serviço do seu container de banco de dados
+  host: localhost # Substituir pelo nome do serviço do seu container de banco de dados
 
 
 # As with config/credentials.yml, you never want to store sensitive information,

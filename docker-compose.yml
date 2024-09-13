@@ -1,18 +1,4 @@
 services:
-  ruby:
-    build: .
-    volumes:
-      - .:/usr/src/app
-    working_dir: /usr/src/app
-    command: /bin/bash
-    tty: true
-    depends_on:
-      - db
-    ports:
-      - "3000:3000"
-    networks:
-      - app-network
-
   db:
     image: postgres:latest
     environment:
