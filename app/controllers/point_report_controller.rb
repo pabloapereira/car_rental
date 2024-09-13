@@ -1,10 +1,14 @@
-class PointReportController < ReportsController
+require_relative '../queries/point/test_point_query'
 
+class PointReportController < ReportsController
+  include PointQuery
   def index
+    name = PointQuery::get_employer
+
     title = "titulo teste 2"
     time = "10"
     date = 20/10/1080
-    name = "Pablo Andrei Pereira"
+    name =  "#{name}"
     cpf = " 282.304.570-85"
     enterprise = "PONTO GESTOR"
     cnpj = "17.620.440/0001-44"
